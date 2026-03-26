@@ -1,2 +1,4 @@
 class_name ConnectFourBoard
-extends Resource
+extends Node2D
+
+var board = Array[]
