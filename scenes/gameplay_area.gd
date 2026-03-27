@@ -1,36 +1,41 @@
 extends Node2D
 
 @export var temp_piece_packed : PackedScene
-
+@export var follow_curve : Curve
 @onready var topchip : Sprite2D = $Dummy
-var topchip_x : int = 3
-var num_trans : int = 0
+
+##THESE ARE ARRAY POSITIONS, NOT WORLD SPACE
+var topchip_target_x : int = 0:
+	set(new_val):
+		topchip_target_x = new_val
+		target_position_x_world = $Board.grid_to_position(Vector2i(topchip_target_x,0)).x
+var target_position_x_world : int = 0
 var queued_drop_x : int = -1
 
-func _process(delta: float) -> void:
-	var new_x : int = $Board.position_to_grid($Board.get_mouse_pos()).x
-	new_x = clampi(new_x,0,$Board.board.COLS-1)
-	if topchip_x != new_x:
-		num_trans += 1
-		var tween : Tween = get_tree().create_tween()
-		tween.finished.connect(_trans_finished)
-		tween.set_trans(Tween.TRANS_QUAD)
-		var grid_pos : Vector2i = Vector2i(new_x,0)
-		tween.tween_property(topchip,"global_position:x",$Board.grid_to_position(grid_pos).x,0.25)
-		topchip_x = new_x
+var dist : float = 0
 
-func _trans_finished() -> void:
-	num_trans -= 1
-	if num_trans == 0 and queued_drop_x != -1:
+func _process(delta: float) -> void:
+	
+	if queued_drop_x == -1:
+		var new_x : int = $Board.position_to_grid($Board.get_mouse_pos()).x
+		new_x = clampi(new_x,0,$Board.board.COLS-1)
+		topchip_target_x = new_x
+		
+	dist = absf(topchip.position.x-target_position_x_world)
+	print(dist)
+	topchip.position.x = move_toward(topchip.position.x,target_position_x_world,follow_curve.sample(dist))
+	
+	if queued_drop_x != -1 and is_zero_approx(dist):
 		initiate_drop(queued_drop_x)
 		queued_drop_x = -1
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("drop_piece"):
-		if num_trans == 0:
-			initiate_drop(topchip_x)
+		var dist : float = absf(topchip.position.x-target_position_x_world)
+		if is_zero_approx(dist):
+			initiate_drop(topchip_target_x)
 		elif queued_drop_x == -1:
-			queued_drop_x = topchip_x
+			queued_drop_x = topchip_target_x
 
 func initiate_drop(x : int) -> void:
 	var new_piece : Piece = temp_piece_packed.instantiate()

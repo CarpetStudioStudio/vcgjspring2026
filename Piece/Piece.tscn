@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://be78rsdhd4y0" path="res://Piece/yellow_dot.png" id="4_1r04k"]
 
 [node name="Piece" type="Sprite2D" unique_id=818604889]
+scale = Vector2(0.625, 0.625)
 texture = ExtResource("1_guwan")
 script = ExtResource("2_1aca4")
 sprites = Array[Texture]([ExtResource("1_guwan"), ExtResource("3_6dp0k"), ExtResource("4_1r04k")])
