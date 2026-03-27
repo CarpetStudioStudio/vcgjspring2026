@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var temp_piece_packed : PackedScene
+
 @onready var topchip : Sprite2D = $Dummy
 var topchip_x : int = 3
 var num_trans : int = 0
@@ -20,11 +22,17 @@ func _process(delta: float) -> void:
 func _trans_finished() -> void:
 	num_trans -= 1
 	if num_trans == 0 and queued_drop_x != -1:
-		$Board.drop_piece()
+		initiate_drop(queued_drop_x)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("drop_piece"):
 		if num_trans == 0:
-			$Board.drop_piece()
+			initiate_drop(topchip_x)
 		elif queued_drop_x == -1:
 			queued_drop_x = topchip_x
+
+func initiate_drop(x : int) -> void:
+	var new_piece : Piece = temp_piece_packed.instantiate()
+	add_child(new_piece)
+	new_piece.global_position = topchip.global_position
+	$Board.drop_piece(new_piece,x)

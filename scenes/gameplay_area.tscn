@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" uid="uid://7qfbnra4561j" path="res://scenes/gameplay_area.gd" id="1_cs01o"]
 [ext_resource type="Texture2D" uid="uid://bp3e0labgfm5i" path="res://board/C4Board.png" id="2_tcirx"]
+[ext_resource type="PackedScene" uid="uid://db804k60uw378" path="res://Piece/Piece.tscn" id="3_erxlv"]
 [ext_resource type="Texture2D" uid="uid://cltnp8fyy60pw" path="res://icon.svg" id="4_erxlv"]
 [ext_resource type="PackedScene" uid="uid://dv142aw4n8270" path="res://board/connect_four_tilemap.tscn" id="4_tcirx"]
 
 [node name="GameplayArea" type="Node2D" unique_id=1961209254]
 script = ExtResource("1_cs01o")
+temp_piece_packed = ExtResource("3_erxlv")
 
 [node name="TextureRect" type="Sprite2D" parent="." unique_id=2076377921]
 visible = false
