@@ -9,7 +9,7 @@ const COLS : int = 7
 var board : Array[Piece] = []
 
 func _init() -> void:
-	for i in 7*6:
+	for i in COLS*ROWS:
 		board.append(null)
 	
 
