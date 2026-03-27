@@ -14,3 +14,12 @@ func grid_to_position(pos : Vector2i) -> Vector2:
 	
 func position_to_grid(pos : Vector2) -> Vector2i:
 	return $TileMap.local_to_map(pos)
+
+func drop_piece(piece : Piece, xpos : int) -> void:
+	
+	var ypos : int = board.find_lowest_empty(xpos)
+	board.set_piece(piece, xpos, ypos)
+	var tween : Tween = get_tree().create_tween()
+	tween.set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(piece, "position:y", grid_to_position(Vector2i(xpos, ypos)).y,1.0)
+	pass
