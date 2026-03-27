@@ -43,35 +43,46 @@ func find_lowest_empty_xy(x : int, y : int) -> int:
 	return ROWS-1
 
 func trans_surroundings(x : int, y : int) -> void:
-	var piece : Piece = get_piece(x,y)
-	assert(piece != null,"no piece exists here")
-	
-	var color : Piece.PColor = piece.color
-	for i in range(-1,2,2):
-		for j in range(-1,2,2):
+	assert(get_piece(x,y) != null,"no piece exists here")
+	for i in range(-1,2,1):
+		for j in range(-1,2,1):
 			if i == 0 and j == 0:
 				continue
-			var x2 : int = x+2*i
-			var y2 : int = y+2*j
-			if not in_bounds(x2,y2):
-				continue
+			var did_it : bool = match_line(x,y,i,j)
+			if not did_it:
+				match_line(x,y,i,j,3)
 			
-			var opp_piece : Piece = get_piece(x2,y2)
-			if opp_piece == null:
-				continue
-			if opp_piece.color != color:
-				continue
-			
-			var trans_piece : Piece = get_piece(x+i,y+j)
-			if trans_piece == null:
-				continue
-			if trans_piece.color == color:
-				continue
-			trans_piece.trans(color)
-			await trans_piece.finished_trans
 	print("test2")
 	
 	piece_transition_finished.emit()
+
+func match_line(x : int, y : int, i : int, j : int, length : int = 2) -> bool:
+	var piece : Piece = get_piece(x,y)
+	var color : Piece.PColor = piece.color
+	
+	var opp_x : int = x+length*i
+	var opp_y : int = y+length*j
+	if not in_bounds(opp_x,opp_y):
+		return false
+		
+	var opp_piece : Piece = get_piece(opp_x,opp_y)
+	if opp_piece == null:
+		return false
+	if opp_piece.color != color:
+		return false
+	
+	for k in range(1,length):
+		if get_piece(x+k*i,y+k*j) == null:
+			return false
+		
+	for k in range(1,length):
+		var trans_piece : Piece = get_piece(x+k*i,y+k*j)
+		if color == trans_piece.color:
+			trans_piece.trans(Piece.PColor.UNSET)
+		else:
+			trans_piece.trans(color)
+	
+	return true
 
 func remove_piece(x : int, y : int) -> Piece:
 	var removed_piece : Piece = get_piece(x,y)

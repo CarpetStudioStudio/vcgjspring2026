@@ -12,7 +12,7 @@ func get_mouse_pos() -> Vector2:
 
 func grid_to_position(pos : Vector2i) -> Vector2:
 	var world_pos : Vector2i = $TileMap.map_to_local(pos)+$TileMap.global_position
-	world_pos += Vector2i(-1,3)
+	#world_pos += Vector2i(-1,3)
 	return world_pos
 	
 func position_to_grid(pos : Vector2) -> Vector2i:

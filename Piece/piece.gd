@@ -13,11 +13,20 @@ enum PColor {
 		color = new_val
 		texture = sprites[int(color)]
 static var sprites : Array[Texture] = [
-	preload("res://Piece/white_dot.png"),
-	preload("res://Piece/red_dot.png"),
-	preload("res://Piece/yellow_dot.png")
+	preload("res://Piece/piece_grey.png"),
+	preload("res://Piece/piece_red.png"),
+	preload("res://Piece/piece_yellow.png")
 ]
 
+func trans_alternate() -> void:
+	match color:
+		PColor.RED:
+			color = PColor.YELLOW
+		PColor.YELLOW:
+			color = PColor.RED
+	await get_tree().create_timer(0.25).timeout
+	finished_trans.emit()
+	
 func trans(color : PColor) -> void:
 	assert(self.color != color, "cannot transition to self")
 	
