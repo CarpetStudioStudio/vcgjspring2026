@@ -26,6 +26,7 @@ func get_piece(x : int, y : int) -> Piece:
 
 func set_piece(piece : Piece, x : int, y : int) -> void:
 	assert(get_piece(x,y) == null, "trying to set a piece that's not empty!")
+	board[y*COLS+x] = piece
 
 ##Finds the lowest empty from the top of the board
 func find_lowest_empty(x : int) -> int:
