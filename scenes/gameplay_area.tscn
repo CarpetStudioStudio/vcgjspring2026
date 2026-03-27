@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bms8gljnjkdsi"]
+
+[ext_resource type="Texture2D" uid="uid://bp3e0labgfm5i" path="res://board/C4Board.png" id="2_tcirx"]
+[ext_resource type="PackedScene" uid="uid://dv142aw4n8270" path="res://board/connect_four_tilemap.tscn" id="4_tcirx"]
+
+[node name="GameplayArea" type="Node2D" unique_id=1961209254]
+
+[node name="TextureRect" type="Sprite2D" parent="." unique_id=2076377921]
+visible = false
+texture = ExtResource("2_tcirx")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1264491550]
+
+[node name="Board" parent="." unique_id=985604939 instance=ExtResource("4_tcirx")]
