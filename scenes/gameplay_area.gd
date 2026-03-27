@@ -57,13 +57,19 @@ func _input(event: InputEvent) -> void:
 			queued_drop_x = topchip_target_x
 
 func initiate_drop(x : int) -> void:
-	var new_piece : Piece = temp_piece_packed.instantiate()
+	var new_piece : Piece = temp_piece_packed.instantiate()	
 	if(current_player == Turn.PLAYER):
 		new_piece.color = Piece.PColor.YELLOW
-		set_turn(Turn.AI)
 	else:
 		new_piece.color = Piece.PColor.RED
-		set_turn(Turn.PLAYER)
 	add_child(new_piece)
 	new_piece.global_position = $Board.grid_to_position(Vector2i(x,-1))
-	$Board.drop_piece(new_piece,x)
+	var err = $Board.drop_piece(new_piece,x)
+	
+	if err == OK:
+		if(current_player == Turn.PLAYER):
+			set_turn(Turn.AI)
+		else:
+			set_turn(Turn.PLAYER)
+	else:
+		new_piece.queue_free()
