@@ -6,9 +6,10 @@ extends Node2D
 
 enum Turn {
 	PLAYER,
-	AI
+	AI,
 }
 var current_player : Turn
+var waiting : bool
 
 ##THESE ARE ARRAY POSITIONS, NOT WORLD SPACE
 var topchip_target_x : int = 0:
@@ -23,10 +24,11 @@ var dist : float = 0
 func set_turn(turn: Turn) -> void:
 	if turn == Turn.PLAYER:
 		current_player = Turn.PLAYER
-		$Dummy.texture = Piece.sprites[Piece.PColor.YELLOW]
+		topchip.texture = Piece.sprites[Piece.PColor.YELLOW]
 	else:
 		current_player = Turn.AI
-		$Dummy.texture = Piece.sprites[Piece.PColor.RED]
+		topchip.texture = Piece.sprites[Piece.PColor.RED]
+	topchip.show()
 
 func _ready() -> void:
 	if randi() % Turn.size() == 0:
@@ -56,6 +58,12 @@ func _input(event: InputEvent) -> void:
 			queued_drop_x = topchip_target_x
 
 func initiate_drop(x : int) -> void:
+	if $Board.board.find_lowest_empty(x) == -1:
+		return
+	
+	waiting = true
+	topchip.hide()
+	
 	var new_piece : Piece = temp_piece_packed.instantiate()	
 	if(current_player == Turn.PLAYER):
 		new_piece.color = Piece.PColor.YELLOW
@@ -63,12 +71,12 @@ func initiate_drop(x : int) -> void:
 		new_piece.color = Piece.PColor.RED
 	add_child(new_piece)
 	new_piece.global_position = $Board.grid_to_position(Vector2i(x,-1))
-	var err = $Board.drop_piece(new_piece,x)
+	$Board.drop_piece(new_piece,x)
 	
-	if err == OK:
-		if(current_player == Turn.PLAYER):
-			set_turn(Turn.AI)
-		else:
-			set_turn(Turn.PLAYER)
+	await $Board.drop_resolved
+	if(current_player == Turn.PLAYER):
+		topchip.global_position.x = 1000
+		set_turn(Turn.AI)
 	else:
-		new_piece.queue_free()
+		topchip.global_position.x = -1000
+		set_turn(Turn.PLAYER)

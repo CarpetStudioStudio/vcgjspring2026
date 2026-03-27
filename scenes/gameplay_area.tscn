@@ -7,9 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://dv142aw4n8270" path="res://board/connect_four_tilemap.tscn" id="4_tcirx"]
 
 [sub_resource type="Curve" id="Curve_erxlv"]
-_limits = [0.0, 1500.0, 0.0, 500.0]
-_data = [Vector2(0, 380), 0.0, 0.0, 0, 0, Vector2(372.5, 1297.7528), 0.0, 0.0, 0, 0]
-point_count = 2
+_limits = [0.0, 2000.0, 0.0, 1000.0]
+_data = [Vector2(0, 380), 0.0, 0.0, 0, 0, Vector2(372.5, 1300), 0.0, 0.0, 0, 0, Vector2(745, 1300), 0.0, 0.0, 0, 0, Vector2(1000, 2000), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [node name="GameplayArea" type="Node2D" unique_id=1961209254]
 script = ExtResource("1_cs01o")

@@ -1,6 +1,7 @@
 class_name Board
 extends Resource
 
+signal piece_transition_finished
 
 const ROWS : int = 6
 const COLS : int = 7
@@ -40,6 +41,37 @@ func find_lowest_empty_xy(x : int, y : int) -> int:
 			return i-1
 	
 	return ROWS-1
+
+func trans_surroundings(x : int, y : int) -> void:
+	var piece : Piece = get_piece(x,y)
+	assert(piece != null,"no piece exists here")
+	
+	var color : Piece.PColor = piece.color
+	for i in range(-1,2,2):
+		for j in range(-1,2,2):
+			if i == 0 and j == 0:
+				continue
+			var x2 : int = x+2*i
+			var y2 : int = y+2*j
+			if not in_bounds(x2,y2):
+				continue
+			
+			var opp_piece : Piece = get_piece(x2,y2)
+			if opp_piece == null:
+				continue
+			if opp_piece.color != color:
+				continue
+			
+			var trans_piece : Piece = get_piece(x+i,y+j)
+			if trans_piece == null:
+				continue
+			if trans_piece.color == color:
+				continue
+			trans_piece.trans(color)
+			await trans_piece.finished_trans
+	print("test2")
+	
+	piece_transition_finished.emit()
 
 func remove_piece(x : int, y : int) -> Piece:
 	var removed_piece : Piece = get_piece(x,y)
