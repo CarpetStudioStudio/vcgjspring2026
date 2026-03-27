@@ -10,7 +10,9 @@ func get_mouse_pos() -> Vector2:
 	return $TileMap.get_local_mouse_position()
 
 func grid_to_position(pos : Vector2i) -> Vector2:
-	return $TileMap.map_to_local(pos)+$TileMap.global_position
+	var world_pos : Vector2i = $TileMap.map_to_local(pos)+$TileMap.global_position
+	world_pos += Vector2i(-1,3)
+	return world_pos
 	
 func position_to_grid(pos : Vector2) -> Vector2i:
 	return $TileMap.local_to_map(pos)

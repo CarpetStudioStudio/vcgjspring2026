@@ -41,8 +41,7 @@ func _process(delta: float) -> void:
 		topchip_target_x = new_x
 		
 	dist = absf(topchip.position.x-target_position_x_world)
-	print(dist)
-	topchip.position.x = move_toward(topchip.position.x,target_position_x_world,follow_curve.sample(dist))
+	topchip.position.x = move_toward(topchip.position.x,target_position_x_world,follow_curve.sample(dist)*delta)
 	
 	if queued_drop_x != -1 and is_zero_approx(dist):
 		initiate_drop(queued_drop_x)
