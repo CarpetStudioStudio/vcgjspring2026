@@ -51,6 +51,9 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("drop_piece"):
+		if waiting:
+			return
+		
 		var dist : float = absf(topchip.position.x-target_position_x_world)
 		if is_zero_approx(dist):
 			initiate_drop(topchip_target_x)
@@ -80,3 +83,4 @@ func initiate_drop(x : int) -> void:
 	else:
 		topchip.global_position.x = -1000
 		set_turn(Turn.PLAYER)
+	waiting = false
