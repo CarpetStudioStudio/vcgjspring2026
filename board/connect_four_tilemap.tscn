@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bki2mcflglvp0"]
+
+[ext_resource type="Texture2D" uid="uid://bp3e0labgfm5i" path="res://board/C4Board.png" id="1_4m2cl"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sr4wk"]
+texture = ExtResource("1_4m2cl")
+texture_region_size = Vector2i(75, 75)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_kftp5"]
+tile_size = Vector2i(75, 75)
+sources/0 = SubResource("TileSetAtlasSource_sr4wk")
+
+[node name="TileMap" type="TileMap" unique_id=1723645219]
+tile_set = SubResource("TileSet_kftp5")
+format = 2
+layer_0/tile_data = PackedInt32Array(458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 393226, 0, 0, 327690, 0, 0, 262154, 0, 0, 196618, 0, 0, 131082, 0, 0, 393220, 0, 0, 327684, 0, 0, 262148, 0, 0, 196612, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 196617, 0, 0, 262153, 0, 0, 327689, 0, 0, 393225, 0, 0, 393224, 0, 0, 393223, 0, 0, 393222, 0, 0, 393221, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 262152, 0, 0, 262151, 0, 0, 262150, 0, 0, 262149, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0)
