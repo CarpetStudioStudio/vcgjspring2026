@@ -23,6 +23,7 @@ func _trans_finished() -> void:
 	num_trans -= 1
 	if num_trans == 0 and queued_drop_x != -1:
 		initiate_drop(queued_drop_x)
+		queued_drop_x = -1
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("drop_piece"):
@@ -34,5 +35,5 @@ func _input(event: InputEvent) -> void:
 func initiate_drop(x : int) -> void:
 	var new_piece : Piece = temp_piece_packed.instantiate()
 	add_child(new_piece)
-	new_piece.global_position = topchip.global_position
+	new_piece.global_position = $Board.grid_to_position(Vector2i(x,-1))
 	$Board.drop_piece(new_piece,x)

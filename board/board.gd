@@ -6,11 +6,12 @@ const ROWS : int = 6
 const COLS : int = 7
 
 
-var board : Array[Piece]
+var board : Array[Piece] = []
 
-func _ready() -> void:
+func _init() -> void:
 	for i in 7*6:
 		board.append(null)
+	
 
 
 func in_bounds(x : int, y : int) -> bool:
@@ -38,7 +39,7 @@ func find_lowest_empty_xy(x : int, y : int) -> int:
 		if get_piece(x,i) != null:
 			return i-1
 	
-	return -1
+	return ROWS-1
 
 func remove_piece(x : int, y : int) -> Piece:
 	var removed_piece : Piece = get_piece(x,y)

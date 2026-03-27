@@ -8,4 +8,4 @@
 [node name="Piece" type="Sprite2D" unique_id=818604889]
 texture = ExtResource("1_guwan")
 script = ExtResource("2_1aca4")
-sprites = Array[Texture]([null, ExtResource("3_6dp0k"), ExtResource("4_1r04k")])
+sprites = Array[Texture]([ExtResource("1_guwan"), ExtResource("3_6dp0k"), ExtResource("4_1r04k")])

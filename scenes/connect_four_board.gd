@@ -18,6 +18,7 @@ func position_to_grid(pos : Vector2) -> Vector2i:
 func drop_piece(piece : Piece, xpos : int) -> void:
 	
 	var ypos : int = board.find_lowest_empty(xpos)
+	print("Lowest", ypos)
 	board.set_piece(piece, xpos, ypos)
 	var tween : Tween = get_tree().create_tween()
 	tween.set_trans(Tween.TRANS_QUAD)
