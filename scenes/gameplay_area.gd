@@ -4,6 +4,12 @@ extends Node2D
 @export var follow_curve : Curve
 @onready var topchip : Sprite2D = $Dummy
 
+enum Turn {
+	PLAYER,
+	AI
+}
+var current_player : Turn
+
 ##THESE ARE ARRAY POSITIONS, NOT WORLD SPACE
 var topchip_target_x : int = 0:
 	set(new_val):
@@ -14,8 +20,21 @@ var queued_drop_x : int = -1
 
 var dist : float = 0
 
+func set_turn(turn: Turn) -> void:
+	if turn == Turn.PLAYER:
+		current_player = Turn.PLAYER
+		$Dummy.texture = Piece.sprites[Piece.PColor.YELLOW]
+	else:
+		current_player = Turn.AI
+		$Dummy.texture = Piece.sprites[Piece.PColor.RED]
+
+func _ready() -> void:
+	if randi() % Turn.size() == 0:
+		set_turn(Turn.PLAYER)
+	else:
+		set_turn(Turn.AI)
+
 func _process(delta: float) -> void:
-	
 	if queued_drop_x == -1:
 		var new_x : int = $Board.position_to_grid($Board.get_mouse_pos()).x
 		new_x = clampi(new_x,0,$Board.board.COLS-1)
@@ -39,6 +58,12 @@ func _input(event: InputEvent) -> void:
 
 func initiate_drop(x : int) -> void:
 	var new_piece : Piece = temp_piece_packed.instantiate()
+	if(current_player == Turn.PLAYER):
+		new_piece.color = Piece.PColor.YELLOW
+		set_turn(Turn.AI)
+	else:
+		new_piece.color = Piece.PColor.RED
+		set_turn(Turn.PLAYER)
 	add_child(new_piece)
 	new_piece.global_position = $Board.grid_to_position(Vector2i(x,-1))
 	$Board.drop_piece(new_piece,x)

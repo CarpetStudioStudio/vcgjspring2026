@@ -10,4 +10,8 @@ enum PColor {
 	set(new_val):
 		color = new_val
 		texture = sprites[int(color)]
-@export var sprites : Array[Texture]
+static var sprites : Array[Texture] = [
+	preload("res://Piece/white_dot.png"),
+	preload("res://Piece/red_dot.png"),
+	preload("res://Piece/yellow_dot.png")
+]
