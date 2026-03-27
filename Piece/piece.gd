@@ -1,8 +1,11 @@
 class_name Piece
-extends Node
-enum PieceColor {RED, YELLOW}
-var pcolor : PieceColor = PieceColor.RED
-@onready var pieceSprite = $Sprite2D
+extends Sprite2D
+enum PColor {
+	UNSET,
+	RED,
+	YELLOW
+}
+var color : PColor = PColor.UNSET
 
-func set_color(color : int) -> void:
-	pcolor = color
+func _ready() -> void:
+	assert(color != PColor.UNSET, "Please set the color")
