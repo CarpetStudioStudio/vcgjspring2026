@@ -1,3 +1,11 @@
 [gd_scene format=3 uid="uid://db804k60uw378"]
 
-[node name="Sprite2D" type="Sprite2D" unique_id=818604889]
+[ext_resource type="Texture2D" uid="uid://cltnp8fyy60pw" path="res://icon.svg" id="1_guwan"]
+[ext_resource type="Script" uid="uid://cmkqi43xfu7xt" path="res://Piece/piece.gd" id="2_1aca4"]
+[ext_resource type="Texture2D" uid="uid://cexcaxvbuhw35" path="res://Piece/red_dot.png" id="3_6dp0k"]
+[ext_resource type="Texture2D" uid="uid://be78rsdhd4y0" path="res://Piece/yellow_dot.png" id="4_1r04k"]
+
+[node name="Piece" type="Sprite2D" unique_id=818604889]
+texture = ExtResource("1_guwan")
+script = ExtResource("2_1aca4")
+sprites = Array[Texture]([null, ExtResource("3_6dp0k"), ExtResource("4_1r04k")])
