@@ -6,7 +6,7 @@ const ROWS : int = 6
 const COLS : int = 7
 
 
-var board = Array[Piece]
+var board : Array[Piece]
 
 func _ready() -> void:
 	for i in 7*6:
