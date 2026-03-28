@@ -1,7 +1,7 @@
 class_name Board
 extends Resource
 
-signal piece_transition_finished
+signal piece_transition_finished(did_anything : bool)
 
 const ROWS : int = 6
 const COLS : int = 7
@@ -44,6 +44,7 @@ func find_lowest_empty_xy(x : int, y : int) -> int:
 
 func trans_surroundings(x : int, y : int) -> void:
 	assert(get_piece(x,y) != null,"no piece exists here")
+	var did_something : bool = false
 	for i in range(-1,2,1):
 		for j in range(-1,2,1):
 			if i == 0 and j == 0:
@@ -56,9 +57,10 @@ func trans_surroundings(x : int, y : int) -> void:
 				var did_it : bool = await mutate_line(line)
 				
 				if did_it:
+					did_something = true
 					break
-	
-	piece_transition_finished.emit()
+	print("a")
+	piece_transition_finished.emit(did_something)
 
 func get_line(x : int, y : int, i : int, j : int, length : int = 3) -> Array[Piece]:
 	if length < 3:
@@ -84,8 +86,6 @@ func mutate_line(line : Array[Piece]) -> bool:
 	for p : Piece in line:
 		line_color.append(p.color)
 	
-	print(line)
-	print(line_color)
 	var color : Piece.PColor = line_color[0]
 	var opp_color : Piece.PColor = Piece.swap_color(color)
 	
@@ -111,3 +111,22 @@ func remove_piece(x : int, y : int) -> Piece:
 	var removed_piece : Piece = get_piece(x,y)
 	assert(removed_piece != null, "Trying to remove empty piece")
 	return removed_piece
+
+
+##Returns a number representing the evaluation of the current position
+static func evaluate(board : Board) -> int:
+	var score : int = 0
+	for x in COLS:
+		for y in ROWS:
+			var piece : Piece = board.get_piece(x,y)
+			if piece == null:
+				continue
+			match piece.color:
+				Piece.PColor.YELLOW:
+					score += 1
+				Piece.PColor.RED:
+					score -= 1
+				_:
+					pass
+	
+	return score

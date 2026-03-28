@@ -8,6 +8,7 @@ enum Turn {
 	PLAYER,
 	AI,
 }
+var clanker : Clanker = Clanker.new()
 var current_player : Turn
 var waiting : bool
 
@@ -83,4 +84,5 @@ func initiate_drop(x : int) -> void:
 	else:
 		topchip.global_position.x = -1000
 		set_turn(Turn.PLAYER)
+	clanker.pick_move($Board.board)
 	waiting = false

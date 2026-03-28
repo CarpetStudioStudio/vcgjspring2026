@@ -16,6 +16,18 @@ script = ExtResource("1_cs01o")
 temp_piece_packed = ExtResource("3_erxlv")
 follow_curve = SubResource("Curve_erxlv")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=281644404]
+layer = -5
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=773799936]
+z_index = -5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.82005566, 0.650158, 0.4683301, 1)
+
 [node name="TextureRect" type="Sprite2D" parent="." unique_id=2076377921]
 visible = false
 texture = ExtResource("2_tcirx")
