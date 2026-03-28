@@ -18,6 +18,8 @@ static var sprites : Array[Texture] = [
 	preload("res://Piece/piece_yellow.png")
 ]
 
+@onready var anim_player : AnimationPlayer = $AnimationPlayer
+
 static func swap_color(color : PColor) -> PColor:
 	match color:
 		PColor.UNSET:
@@ -40,7 +42,9 @@ func trans_alternate() -> void:
 	
 func trans(color : PColor) -> void:
 	assert(self.color != color, "cannot transition to self")
-	
+	anim_player.play("flip")
+	await anim_player.animation_finished
 	self.color = color
-	await get_tree().create_timer(0.25).timeout
+	anim_player.play_backwards("flip")
+	await anim_player.animation_finished
 	finished_trans.emit()

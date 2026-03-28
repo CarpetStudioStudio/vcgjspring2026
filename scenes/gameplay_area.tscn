@@ -26,5 +26,5 @@ texture = ExtResource("2_tcirx")
 
 [node name="Dummy" type="Sprite2D" parent="." unique_id=2088462674]
 position = Vector2(0, -256.00003)
-scale = Vector2(0.65, 0.65)
+scale = Vector2(0.12, 0.12)
 texture = ExtResource("4_erxlv")

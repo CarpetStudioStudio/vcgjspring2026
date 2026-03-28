@@ -53,7 +53,8 @@ func trans_surroundings(x : int, y : int) -> void:
 				if i == 0 and k == 3:
 					continue
 				var line : Array[Piece] = get_line(x,y,i,j,k)
-				var did_it : bool = mutate_line(line)
+				var did_it : bool = await mutate_line(line)
+				
 				if did_it:
 					break
 	
@@ -95,11 +96,13 @@ func mutate_line(line : Array[Piece]) -> bool:
 	if line_color.count(color) == line_color.size():
 		for i in range(1,line.size()-1):
 			line[i].trans(Piece.PColor.UNSET)
+			await line[i].get_tree().create_timer(0.1).timeout
 		return true
 	
 	if line_color.count(color) == 2:
 		for i in range(1,line.size()-1):
 			line[i].trans(color)
+			await line[i].get_tree().create_timer(0.1).timeout
 		return true
 	return false
 	

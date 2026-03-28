@@ -2,12 +2,27 @@
 
 [ext_resource type="TileSet" uid="uid://dcfvyrrpierv2" path="res://board/new_tile_set.tres" id="1_4m2cl"]
 [ext_resource type="Script" uid="uid://0pg01sg6qo2p" path="res://scenes/connect_four_board.gd" id="1_kmst1"]
+[ext_resource type="Texture2D" uid="uid://psilwkg0c5w3" path="res://board/c_4_board_crayon.png" id="3_tf1vh"]
+[ext_resource type="Texture2D" uid="uid://50aqjby52sdn" path="res://board/c_4_board_crayon_backing.png" id="4_k7kiq"]
 
 [node name="ConnectFourBoard" type="Node2D" unique_id=1798673478]
 script = ExtResource("1_kmst1")
 
 [node name="TileMap" type="TileMapLayer" parent="." unique_id=985604939]
+visible = false
 z_index = 1
 position = Vector2(-266, -216)
 tile_map_data = PackedByteArray("AAAAAAAAAAABAAEAAAABAAAAAAABAAEAAAACAAAAAAABAAEAAAADAAAAAAABAAEAAAAEAAAAAAABAAEAAAAFAAAAAAABAAEAAAAGAAAAAAABAAEAAAAGAAEAAAABAAEAAAAGAAIAAAABAAEAAAAGAAMAAAABAAEAAAAGAAQAAAABAAEAAAAGAAUAAAABAAEAAAAFAAUAAAABAAEAAAAEAAUAAAABAAEAAAADAAUAAAABAAEAAAACAAUAAAABAAEAAAABAAUAAAABAAEAAAAAAAUAAAABAAEAAAAAAAQAAAABAAEAAAAAAAMAAAABAAEAAAAAAAIAAAABAAEAAAAAAAEAAAABAAEAAAABAAEAAAABAAEAAAACAAEAAAABAAEAAAADAAEAAAABAAEAAAABAAIAAAABAAEAAAACAAIAAAABAAEAAAADAAIAAAABAAEAAAAEAAIAAAABAAEAAAAEAAEAAAABAAEAAAAFAAEAAAABAAEAAAAFAAIAAAABAAEAAAAEAAMAAAABAAEAAAADAAMAAAABAAEAAAACAAMAAAABAAEAAAABAAMAAAABAAEAAAAFAAMAAAABAAEAAAADAAQAAAABAAEAAAACAAQAAAABAAEAAAAEAAQAAAABAAEAAAABAAQAAAABAAEAAAAFAAQAAAABAAEAAAA=")
 tile_set = ExtResource("1_4m2cl")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1128078066]
+z_index = 1
+position = Vector2(0, 32.005)
+scale = Vector2(0.542, 0.545)
+texture = ExtResource("3_tf1vh")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1061510185]
+z_index = -1
+position = Vector2(0, 31.775)
+scale = Vector2(0.542, 0.545)
+texture = ExtResource("4_k7kiq")
