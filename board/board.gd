@@ -48,41 +48,61 @@ func trans_surroundings(x : int, y : int) -> void:
 		for j in range(-1,2,1):
 			if i == 0 and j == 0:
 				continue
-			var did_it : bool = match_line(x,y,i,j)
-			if not did_it:
-				match_line(x,y,i,j,3)
 			
-	print("test2")
+			for k in range(7,2,-1):
+				if i == 0 and k == 3:
+					continue
+				var line : Array[Piece] = get_line(x,y,i,j,k)
+				var did_it : bool = mutate_line(line)
+				if did_it:
+					break
 	
 	piece_transition_finished.emit()
 
-func match_line(x : int, y : int, i : int, j : int, length : int = 2) -> bool:
-	var piece : Piece = get_piece(x,y)
-	var color : Piece.PColor = piece.color
+func get_line(x : int, y : int, i : int, j : int, length : int = 3) -> Array[Piece]:
+	if length < 3:
+		return []
 	
-	var opp_x : int = x+length*i
-	var opp_y : int = y+length*j
-	if not in_bounds(opp_x,opp_y):
-		return false
-		
-	var opp_piece : Piece = get_piece(opp_x,opp_y)
-	if opp_piece == null:
-		return false
-	if opp_piece.color != color:
+	var result : Array[Piece] = []
+	for k in range(0,length):
+		var kx : int =  x+k*i
+		var ky : int = y+k*j
+		if not in_bounds(kx,ky):
+			return []
+		result.append(get_piece(kx,ky))
+	return result
+
+func mutate_line(line : Array[Piece]) -> bool:
+	if line.size() < 3:
 		return false
 	
-	for k in range(1,length):
-		if get_piece(x+k*i,y+k*j) == null:
-			return false
-		
-	for k in range(1,length):
-		var trans_piece : Piece = get_piece(x+k*i,y+k*j)
-		if color == trans_piece.color:
-			trans_piece.trans(Piece.PColor.UNSET)
-		else:
-			trans_piece.trans(color)
+	if line.has(null):
+		return false
 	
-	return true
+	var line_color : Array[Piece.PColor] = []
+	for p : Piece in line:
+		line_color.append(p.color)
+	
+	print(line)
+	print(line_color)
+	var color : Piece.PColor = line_color[0]
+	var opp_color : Piece.PColor = Piece.swap_color(color)
+	
+	if color != line_color[-1]:
+		return false
+	
+	##All same color = punished
+	if line_color.count(color) == line_color.size():
+		for i in range(1,line.size()-1):
+			line[i].trans(Piece.PColor.UNSET)
+		return true
+	
+	if line_color.count(color) == 2:
+		for i in range(1,line.size()-1):
+			line[i].trans(color)
+		return true
+	return false
+	
 
 func remove_piece(x : int, y : int) -> Piece:
 	var removed_piece : Piece = get_piece(x,y)

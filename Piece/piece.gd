@@ -18,6 +18,17 @@ static var sprites : Array[Texture] = [
 	preload("res://Piece/piece_yellow.png")
 ]
 
+static func swap_color(color : PColor) -> PColor:
+	match color:
+		PColor.UNSET:
+			return PColor.UNSET
+		PColor.RED:
+			return PColor.YELLOW
+		PColor.YELLOW:
+			return PColor.RED
+		_:
+			return PColor.UNSET
+
 func trans_alternate() -> void:
 	match color:
 		PColor.RED:
