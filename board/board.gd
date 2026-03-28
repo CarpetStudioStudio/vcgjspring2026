@@ -42,7 +42,7 @@ func find_lowest_empty_xy(x : int, y : int) -> int:
 	
 	return ROWS-1
 
-func trans_surroundings(x : int, y : int) -> void:
+func trans_surroundings(x : int, y : int, wait : bool = true) -> void:
 	assert(get_piece(x,y) != null,"no piece exists here")
 	var did_something : bool = false
 	for i in range(-1,2,1):
@@ -130,3 +130,20 @@ static func evaluate(board : Board) -> int:
 					pass
 	
 	return score
+
+func create_copy() -> Board:
+	var new_board : Board = Board.new()
+	for piece : Piece in board:
+		if piece != null:
+			new_board.board.append(piece.duplicate())
+		else:
+			new_board.board.append(null)
+		
+	return new_board
+
+func destroy() -> void:
+	for i in board.size():
+		if board[i] != null:
+			board[i].queue_free()
+			board[i] = null
+	board = []
