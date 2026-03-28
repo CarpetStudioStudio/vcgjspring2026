@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://x4mn3f0b8t1l"]
+
+[ext_resource type="Script" uid="uid://dy0ejm3s6vsoc" path="res://UI/menu.gd" id="1_gda05"]
+
+[node name="Menu" type="Control" unique_id=641848627]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gda05")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1191997445]
+layout_mode = 0
+offset_right = 1148.0
+offset_bottom = 644.0
+color = Color(0.3254902, 0.46666667, 1, 1)
+
+[node name="Panel" type="Panel" parent="ColorRect" unique_id=1315561760]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 159.0
+offset_right = 326.0
+offset_bottom = 559.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="ColorRect/Panel" unique_id=1223022602]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/Panel/MarginContainer2" unique_id=107093312]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/Panel/MarginContainer2/VBoxContainer" unique_id=1021155094]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.76862746, 0, 0.007843138, 1)
+theme_override_font_sizes/font_size = 57
+text = "Connect 4"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/Panel" unique_id=1866072222]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 143.0
+offset_right = -19.0
+offset_bottom = -158.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ColorRect/Panel/MarginContainer" unique_id=1786277883]
+layout_mode = 2
+focus_neighbor_top = NodePath("../../MarginContainer2")
+alignment = 1
+
+[node name="1 Player" type="Button" parent="ColorRect/Panel/MarginContainer/VBoxContainer2" unique_id=1963456432]
+layout_mode = 2
+text = "1 Player Mode"
+
+[node name="2 Player" type="Button" parent="ColorRect/Panel/MarginContainer/VBoxContainer2" unique_id=1850303474]
+layout_mode = 2
+text = "2 Player Mode"
+
+[node name="Credit" type="Button" parent="ColorRect/Panel/MarginContainer/VBoxContainer2" unique_id=689643805]
+layout_mode = 2
+text = "Credits"
+
+[connection signal="pressed" from="ColorRect/Panel/MarginContainer/VBoxContainer2/1 Player" to="." method="_on_p1_pressed"]
+[connection signal="pressed" from="ColorRect/Panel/MarginContainer/VBoxContainer2/2 Player" to="." method="_on_p2_pressed"]
+[connection signal="pressed" from="ColorRect/Panel/MarginContainer/VBoxContainer2/Credit" to="." method="_on_credit_pressed"]

@@ -4,12 +4,18 @@ extends Node2D
 @export var follow_curve : Curve
 @onready var topchip : Sprite2D = $Dummy
 
+enum Type {
+	PLAYER,
+	AI,
+}
+
 enum Turn {
 	PLAYER,
 	AI,
 }
 var current_player : Turn
 var waiting : bool
+var game_mode : Type
 
 ##THESE ARE ARRAY POSITIONS, NOT WORLD SPACE
 var topchip_target_x : int = 0:
@@ -84,3 +90,7 @@ func initiate_drop(x : int) -> void:
 		topchip.global_position.x = -1000
 		set_turn(Turn.PLAYER)
 	waiting = false
+
+func set_type(type : Type) -> void:
+	game_mode = type
+	pass
